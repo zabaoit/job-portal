@@ -1,5 +1,5 @@
-import User from "../models/user.model.js";
-import bcrypt from "bcrypt";
+import { User } from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Hàm đăng ký tài khoản mới
@@ -68,7 +68,7 @@ const login = async (req, res) => {
         }
 
         // Tìm user theo email
-        const user = await User.findOne({ email });
+        let user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
                 message: "Incorrect email or password",
@@ -99,7 +99,7 @@ const login = async (req, res) => {
         }
 
         // Tạo JWT token có hạn 1 ngày
-        const token = await jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: '1d' });
+        const token = await jwt.sign(tokenData, process.env.SECRECT_KEY, { expiresIn: '1d' });
 
         // Tạo object user trả về cho client (không trả password)
         user = {
@@ -108,7 +108,7 @@ const login = async (req, res) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             role: user.role,
-                profile: user.profile
+            profile: user.profile
         }
 
         // Gắn token vào cookie và trả kết quả đăng nhập thành công
@@ -159,17 +159,17 @@ const updateProfile = async (req, res) => {
         const file = req.file;
 
         // Validate dữ liệu bắt buộc
-        if(!fullName || !email || !phoneNumber || !bio || !skills){
-            return res.status(400).json({
-                message: "Something is missing",
-                success: false
-            })
-        }
+        // if(!fullName || !email || !phoneNumber || !bio || !skills){
+        //     return res.status(400).json({
+        //         message: "Something is missing",
+        //         success: false
+        //     })
+        // }
 
         // TODO: xử lý upload file lên cloudinary
 
         // Chuyển chuỗi skills thành mảng kỹ năng
-        const shillsArray = skills.split(",");
+        const skillsArray = skills.split(",");
 
         // req.id thường được middleware auth gắn sau khi verify token
         const userId = req.id;
@@ -186,11 +186,11 @@ const updateProfile = async (req, res) => {
         }
 
         // Cập nhật thông tin cơ bản và profile
-        user.fullName = fullName;
-        user.email = email;
-        user.phoneNumber = phoneNumber;
-        user.profile.bio = bio;
-        user.profile.skills = shillsArray;
+        if(fullName) user.fullName = fullName;
+        if(email) user.email = email;
+        if(phoneNumber) user.phoneNumber = phoneNumber;
+        if(bio) user.profile.bio = bio;
+        if(skills) user.profile.skills = skillsArray;
 
         // TODO: xử lý cập nhật resume ở bước sau
 
@@ -221,3 +221,5 @@ const updateProfile = async (req, res) => {
         });
     }
 }
+
+export { register, login, logout, updateProfile };

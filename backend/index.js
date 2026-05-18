@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from "cors"
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
+import userRoute from "./routes/user.route.js"
 
 // Nạp biến môi trường từ file .env vào process.env
 dotenv.config({});
@@ -26,6 +27,8 @@ app.use(cors(corsOptions));
 
 // Ưu tiên PORT từ env, nếu không có thì dùng 3000
 const PORT = process.env.PORT || 3000;
+
+app.use("/api/v1/user" , userRoute);
 
 // Khởi chạy server HTTP và kết nối MongoDB
 app.listen(PORT, () => {
