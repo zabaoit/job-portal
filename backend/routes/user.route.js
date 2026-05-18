@@ -1,2 +1,2 @@
-// This file is currently empty.
-// Intended purpose: define user-related routes (register, login, logout, profile...).
+// File này hiện đang để trống.
+// Mục đích: định nghĩa route liên quan user (register, login, logout, profile...).

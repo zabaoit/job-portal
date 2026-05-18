@@ -4,30 +4,30 @@ import cors from "cors"
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
 
-// Load environment variables from .env into process.env
+// Nạp biến môi trường từ file .env vào process.env
 dotenv.config({});
 
-// Create Express application instance
+// Khởi tạo instance ứng dụng Express
 const app = express();
 
-// Parse JSON request body
+// Parse body dạng JSON
 app.use(express.json());
-// Parse URL-encoded form body
+// Parse body dạng URL-encoded (form submit truyền thống)
 app.use(express.urlencoded({ extended: true }));
-// Parse cookie header into req.cookies
+// Parse cookie từ header vào req.cookies
 app.use(cookieParser());
 
-// CORS configuration for frontend app
+// Cấu hình CORS cho frontend
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with your frontend URL
-  credentials: true, // Allow cookies to be sent
+  origin: 'http://localhost:5173', // Đổi thành URL frontend thực tế của bạn
+  credentials: true, // Cho phép gửi cookie/credentials qua CORS
 };
 app.use(cors(corsOptions));
 
-// Use env port if provided, fallback to 3000
+// Ưu tiên PORT từ env, nếu không có thì dùng 3000
 const PORT = process.env.PORT || 3000;
 
-// Start HTTP server and connect to MongoDB
+// Khởi chạy server HTTP và kết nối MongoDB
 app.listen(PORT, () => {
     connectDB();
   console.log(`Server is running on port ${PORT}`);

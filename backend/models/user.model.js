@@ -1,58 +1,58 @@
 import mongoose from "mongoose";
 
-// User account schema
+// Schema tài khoản người dùng
 const userSchema = new mongoose.Schema({
-    // Full name of the account owner
+    // Họ tên đầy đủ của người dùng
     fullName: {
         type: String,
         required: true,
     },
 
-    // Login email (must be unique)
+    // Email đăng nhập (duy nhất)
     email: {
         type: String,
         required: true,
         unique: true,
     },  
 
-    // Contact phone number
+    // Số điện thoại liên hệ
     phoneNumber : {
         type: String,
         required: true,
     },
 
-    // Hashed password
+    // Mật khẩu đã được hash
     password: {
         type: String,
         required: true, 
     },
 
-    // Role-based account type
+    // Vai trò tài khoản
     role: {
         type: String,
         enum: ['student', 'recruiter'],
         required: true,
     },
 
-    // Nested profile metadata
+    // Thông tin profile mở rộng
     profile: {
-        // Short self-introduction
+        // Giới thiệu ngắn
         bio: {type: String},
-        // Skills list
+        // Danh sách kỹ năng
         skills: [{type: String}],
-        // Resume file URL/path
+        // URL/đường dẫn file CV
         resume: {type: String},
-        // Original uploaded resume filename
+        // Tên file CV gốc khi upload
         resumeOriginalName: {type: String},
-        // Recruiter company reference (if any)
+        // Tham chiếu công ty của recruiter (nếu có)
         company: {type: mongoose.Schema.Types.ObjectId, ref: 'Company'},
-        // Profile image URL/path
+        // URL/đường dẫn ảnh đại diện
         profilePhoto: {type: String,
             default: ""
         },
     }
-// timestamps adds createdAt and updatedAt automatically
+// timestamps tự sinh createdAt và updatedAt
 }, { timestamps: true });
 
-// Export User model
+// Export model User
 export const User = mongoose.model('User', userSchema);

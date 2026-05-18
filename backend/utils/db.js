@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
-// Connect to MongoDB using MONGO_URI from environment variables
+// Kết nối MongoDB bằng MONGO_URI trong biến môi trường
 const connectDB = async () => {
   try {
-    // Attempt database connection
+    // Thực hiện kết nối tới database
     await mongoose.connect(process.env.MONGO_URI);
     console.log("MongoDB connected successfully");
   } catch (error) {
-    // Exit app if DB connection fails at startup
+    // Thoát app nếu kết nối DB thất bại khi khởi động
     console.error("Error connecting to MongoDB:", error);
     process.exit(1);
   }
 }
 
-// Export reusable DB connection helper
+// Export hàm kết nối để tái sử dụng
 export default connectDB;

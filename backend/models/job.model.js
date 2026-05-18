@@ -1,69 +1,69 @@
 import mongoose from "mongoose";
 
-// Job posting schema
+// Schema bài đăng tuyển dụng
 const jobSchema = new mongoose.Schema({
-    // Job title shown to candidates
+    // Tiêu đề công việc hiển thị cho ứng viên
     title: {
         type: String,
         required: true,
     },
 
-    // Full job description
+    // Mô tả chi tiết công việc
     description: {
         type: String,
         required: true,
     },      
 
-    // List of skill/requirement strings
+    // Danh sách yêu cầu/kỹ năng (dạng chuỗi)
     requirements:[{
         type: String,
     }],
 
-    // Salary text (range/amount)
+    // Mức lương (lưu dạng text)
     salary: {
         type: String,
         required: true,
     },
 
-    // Job location
+    // Địa điểm làm việc
     location: {
         type: String,
         required: true,
     },
 
-    // Employment type (full-time, part-time, etc.)
+    // Loại hình công việc (full-time, part-time, ...)
     jobType: {
         type: String,
        required: true,
     },
 
-    // Number of open positions
+    // Số lượng vị trí đang tuyển
     position: {
         type: Number,
         required: true,
     },
 
-    // Company that owns this job post
+    // Công ty sở hữu bài đăng này
     company: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Company',
         required: true,
     },
 
-    // User (recruiter) who created the post
+    // User (recruiter) tạo bài đăng
     create_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
 
-    // List of related application IDs
+    // Danh sách ID hồ sơ ứng tuyển liên quan
     application: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Application',
     }],
-// timestamps adds createdAt and updatedAt automatically
+// timestamps tự sinh createdAt và updatedAt
 }, { timestamps: true });
 
-// Export Job model
+// Export model Job
 export const Job = mongoose.model('Job', jobSchema);    

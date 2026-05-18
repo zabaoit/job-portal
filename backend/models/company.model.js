@@ -1,41 +1,41 @@
 import mongoose from "mongoose";
 
-// Company collection schema
+// Schema lưu thông tin công ty
 const companySchema = new mongoose.Schema({
-    // Company display name
+    // Tên hiển thị của công ty
     name: {
         type: String,
         required: true,
     },
 
-    // Brief company description/about text
+    // Mô tả ngắn về công ty
     description: {
         type: String,
     },
 
-    // Company website URL
+    // URL website công ty
     website: {
         type: String,
     },
 
-    // Company location text
+    // Địa điểm/vị trí công ty
     location: {
         type: String,
     },
 
-    // URL to company logo image
+    // URL ảnh logo công ty
     logo : {
-        type: String, // url to company logo
+        type: String, // đường dẫn logo công ty
     },
 
-    // Owner/recruiter who created this company profile
+    // Người dùng (recruiter) tạo hồ sơ công ty này
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     }
-// timestamps adds createdAt and updatedAt automatically
+// timestamps tự sinh createdAt và updatedAt
 }, { timestamps: true });
 
-// Export Company model
+// Export model Company
 export const Company = mongoose.model('Company', companySchema);

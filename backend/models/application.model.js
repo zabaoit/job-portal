@@ -1,29 +1,29 @@
 import mongoose from "mongoose";
 
-// Job application schema
+// Schema lưu hồ sơ ứng tuyển
 const applicationSchema = new mongoose.Schema({
-    // Reference to the job being applied for
+    // Tham chiếu đến job mà ứng viên ứng tuyển
     job: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job',
         required: true,    
     },
 
-    // Reference to the user who applied
+    // Tham chiếu đến user nộp đơn
     applicant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
     },
 
-    // Application workflow status
+    // Trạng thái xử lý hồ sơ
     status: {
         type: String,
         enum: ['pending', 'accepted', 'rejected'],
         default: 'pending',
     }
-// timestamps adds createdAt and updatedAt automatically
+// timestamps tự sinh createdAt và updatedAt
 }, { timestamps: true });
 
-// Export Application model
+// Export model Application
 export const Application = mongoose.model('Application', applicationSchema);
