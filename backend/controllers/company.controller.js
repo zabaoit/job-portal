@@ -92,7 +92,7 @@ const updateCompany = async (req, res) => {
 
         const updateData = {name, description, website, location};
 
-        const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true }); // Cập nhật công ty và trả về bản mới
+        const company = await Company.findByIdAndUpdate(req.params.id, updateData, { returnDocument: 'after' }); // Cập nhật công ty và trả về bản mới
         
         if(!company){
             return res.status(404).json({
@@ -119,3 +119,4 @@ export {
     getCompanyById,
     updateCompany
 }
+
