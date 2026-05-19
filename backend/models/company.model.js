@@ -6,6 +6,7 @@ const companySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true, // Không cho phép trùng tên công ty
     },
 
     // Mô tả ngắn về công ty
