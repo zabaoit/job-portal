@@ -23,13 +23,13 @@ const registerCompany = async (req, res) => {
             userId: req.id
         });
        
-        res.status(201).json({
+        return res.status(201).json({
             message: "Company registered successfully",
             company,
             success: true
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal server error",
             success: false
         });
@@ -47,13 +47,13 @@ const getCompany = async (req, res) => {
                 success: false
             })
         }
-        res.status(200).json({
+        return res.status(200).json({
             message: "Companies retrieved successfully",
             companies,
             success: true
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal server error",
             success: false
         });
@@ -72,12 +72,12 @@ const getCompanyById = async (req, res) => {
             })
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             company,
             success: true
         });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Internal server error",
             success: false
         });

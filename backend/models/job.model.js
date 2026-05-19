@@ -21,10 +21,14 @@ const jobSchema = new mongoose.Schema({
 
     // Mức lương (lưu dạng text)
     salary: {
-        type: String,
+        type: Number,
         required: true,
     },
 
+    experienceLevel: {
+        type: Number,
+        required: true,
+    },
     // Địa điểm làm việc
     location: {
         type: String,
