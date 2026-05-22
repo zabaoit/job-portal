@@ -17,7 +17,7 @@ const applyJob = async (req, res) => {
         const existingApplication = await Application.findOne({ job: jobId, applicant: userId });
         // Nếu đã nộp đơn rồi thì trả về lỗi
         if(existingApplication){
-            return req.status(400).json({
+            return res.status(400).json({
                 message: "You have already applied for this job",
                 success: false
             });
