@@ -113,7 +113,7 @@ const getApplicants = async (req, res) => {
 }
 // admin cập nhật trạng thái của hồ sơ ứng tuyển
 const updateStatus = async (req, res) => {
-    const { status } = req.body; // Trạng thái mới từ body
+    const { status } = req.body || {}; // Trạng thái mới từ body
     const applicationId = req.params.id; // ID hồ sơ ứng tuyển từ URL params
 
     if(!status){
